@@ -1,5 +1,9 @@
 var container = document.getElementById('container');
 var num=2;
+var color=[];
+var check=[];
+var score=0;
+
 var arr=[  "AliceBlue",
 "AntiqueWhite",
 "Aqua",
@@ -149,27 +153,50 @@ var arr=[  "AliceBlue",
 "Yellow",
 "YellowGreen",];
 
+
+
+    // <-------------------------Square--------------------->
 function block(color) {
     return '<div class="'+color+'"id="div3" onclick="box(this)" style="background:'+color+'"></div>';
 }
 
+
+    // <-------------------------Reset Button--------------------->
 function reset(){
     container.innerHTML = "";
+    var num=2;
+    var color=[];
+    var check=[];
+    var score=0;
 }
 
-var color=[];
+
 
 
 function repeat(){
+
+    // <-------------------------for Check Validation of number--------------------->
     var num=document.getElementById("number").value;
-    if(num=="null" || num==0){
+    if(num=="null" || num==0 || num==1 ){
         num=2;
     }
+    else if(num%2!=0){
+        num++;
+    }
+    
+
+
+
+    // <-------------------------for Color Selector--------------------->
     for (var i = 0; i < num/2; i++) {
         color.push(arr[Math.floor((Math.random() * 149) + 1)])
     }    
     color=color.concat(color);
-    // alert(color);
+
+
+
+
+    // <-------------------------Add Squares--------------------->
     for (var i = 0; i < num; i++) {
         container.innerHTML += block(color[i]);
     }    
@@ -177,42 +204,49 @@ function repeat(){
 
 
 
-var check=[];
-var score=0;
 
 
 
-
+    // <-------------------------To Check Which Box is Clicked-------------------->
 function box(ele){
     var id = $(ele).attr("class");
     check.push(id);
-    ele.classList.add("border");
+    ele.classList.add("border");// Add border on clicked box
 
+
+
+    // <-------------------------When User Click On Two Box--------------------->
     if(check.length==2){
-        // alert(check)
-        if(check[0]==check[1]){
+        // check the Two box
+        if(check[0]==check[1]){ //Color Same
             var name=check[0];
-            // document.getElementsByClassName(name).classList.add("invi");
-            $("."+name).addClass("invi");
-            score++;
-            color.pop(check[1]);
-            color.pop(check[0]);
+
+
+            $("."+name).addClass("invi"); // Display none of clicked box
+            
+            
+            score++; //score plus
+
+            color.pop(check[1]);color.pop(check[0]); //color popes from Color array
+            
+            
+            
+// <-------------------------To Check The Highest Score-------------------->
+            
             if($(".score").html()<score){
                 $(".score").html(score);
             }
-            $("."+check[0]).removeClass("border");
-            $("."+check[1]).removeClass("border");
-            check=[];
+            check=[]; // Set the Check to Empty
             if(color.length<=0){
                 container.innerHTML = "";
                 alert("Game Over")
             }
         }
-    else{
+    else{ // Color Not same
         alert("Don't Match")
-        $("."+check[0]).removeClass("border");
-        $("."+check[1]).removeClass("border");
-        check=[];
+        $("."+check[0]).removeClass("border");// Remove Border
+        $("."+check[1]).removeClass("border");// Remove Border
+        check=[];// Set the Check to Empty
 
     }
     }
