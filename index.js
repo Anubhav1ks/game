@@ -17,10 +17,10 @@ function block(color) {
     // <-------------------------Reset Button--------------------->
 function reset(){
     container.innerHTML = "";
-    var num=2;
-    var color=[];
-    var check=[];
-    var score=0;
+    num=2;
+    color=[];
+    check=[];
+    score=0;
 }
 
 
@@ -91,8 +91,10 @@ function box(ele){
             }
             check=[]; // Set the Check to Empty
             if(color.length<=0){
+                score=0;
                 container.innerHTML = "";
                 alert("Game Over")
+
             }
         }
     else{ // Color Not same
